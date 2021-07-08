@@ -27,11 +27,11 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/YourDatabaseName.db')
-df = pd.read_sql_table('YourTableName', engine)
+engine = create_engine('sqlite:///../data/DisaterResponse.db')
+df = pd.read_sql_table('DisaterData', engine)
 
 # load model
-model = joblib.load("../models/your_model_name.pkl")
+model = joblib.load("../models/cv_model.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model

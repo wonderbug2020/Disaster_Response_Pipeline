@@ -1,2 +1,3 @@
-data
-cv_model
+cv_model.pkl
+categiories.csv
+messages.csv
