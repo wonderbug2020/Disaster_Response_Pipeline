@@ -1,5 +1,5 @@
-import sys
 import pandas as pd
+from sqlalchemy import create_engine
 
 def load_data(messages_path,categories_path):
     messages_df = pd.read_csv(messages_path)
@@ -32,5 +32,27 @@ def clean_data(df):
     df.drop_duplicates(inplace=True)
     return df
 
-def save_data(df, database_name):
-    pass
+def save_data(df):
+    engine = create_engine(f'sqlite:///DisaterResponse.db')
+    df.to_sql('DisaterData', engine, index=False)
+
+def main():
+
+    messages_path = 'messages.csv'
+    categories_path = 'categories.csv'
+    database_path = DisaterResponse
+
+    print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
+              .format(messages_path, categories_path))
+    df = load_data(messages_path, categories_path)
+
+    print('Cleaning data...')
+    df = clean_data(df)
+
+    print('Saving data...\n    DATABASE: {}'.format(database_path))
+    save_data(df)
+
+    print('Cleaned data saved to database!')
+
+if __name__ = '__main__':
+    main()
