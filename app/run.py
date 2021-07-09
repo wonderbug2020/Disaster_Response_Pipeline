@@ -31,7 +31,7 @@ engine = create_engine('sqlite:///../data/DisaterResponse.db')
 df = pd.read_sql_table('DisaterData', engine)
 
 # load model
-model = joblib.load("../models/cv_model.pkl")
+model = joblib.load("../models/model_2.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -94,7 +94,8 @@ def go():
 
 
 def main():
-    app.run(host='0.0.0.0', port=3001, debug=True)
+    #app.run(host='0.0.0.0', port=3001, debug=True)
+    app.run(debug=True)
 
 
 if __name__ == '__main__':
