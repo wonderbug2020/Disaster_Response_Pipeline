@@ -23,7 +23,8 @@ def clean_data(df):
 
         # convert column from string to numeric
         categories[column] = categories[column].astype(int)
-    categories.head()
+    #Change all the 2's to 1's
+    categories = categories.replace([2],1)
     #Next, drop the old categories column
     df = df.drop('categories', axis = 1)
     #Then merge df with the categories df
@@ -33,14 +34,14 @@ def clean_data(df):
     return df
 
 def save_data(df):
-    engine = create_engine(f'sqlite:///DisaterResponse.db')
-    df.to_sql('DisaterData', engine, index=False)
+    engine = create_engine(f'sqlite:///DisasterResponse.db')
+    df.to_sql('DisasterData', engine, if_exists='replace' index=False)
 
 def main():
 
     messages_path = 'messages.csv'
     categories_path = 'categories.csv'
-    database_path = DisaterResponse
+    database_path = 'DisasterResponse'
 
     print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
               .format(messages_path, categories_path))
@@ -54,5 +55,5 @@ def main():
 
     print('Cleaned data saved to database!')
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     main()

@@ -18,8 +18,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 
 def load_data():
-    engine = create_engine('sqlite:///DisaterResponse.db')
-    df = pd.read_sql_table('DisaterData', engine)
+    engine = create_engine('sqlite:///DisasterResponse.db')
+    df = pd.read_sql_table('DisasterData', engine)
     X = df.message
     y = df.drop(['id','message', 'original', 'genre'], axis=1)
     category_names = y.columns
