@@ -34,7 +34,7 @@ def clean_data(df):
 
 def save_data(df):
     engine = create_engine(f'sqlite:///DisaterResponse.db')
-    df.to_sql('DisaterData', engine, index=False)
+    df.to_sql('DisaterData', engine, if_exists='replace' index=False)
 
 def main():
 
