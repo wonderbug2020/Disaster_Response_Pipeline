@@ -23,7 +23,8 @@ def clean_data(df):
 
         # convert column from string to numeric
         categories[column] = categories[column].astype(int)
-    categories.head()
+    #Change all the 2's to 1's
+    categories = categories.replace([2],1)
     #Next, drop the old categories column
     df = df.drop('categories', axis = 1)
     #Then merge df with the categories df
