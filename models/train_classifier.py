@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pickle
 from sqlalchemy import create_engine
 
 import nltk
@@ -54,18 +55,15 @@ def build_model():
     # train classifier
     pipeline.fit(X_train, y_train)
 
-    # predict on test data
-    y_pred = pipeline.predict(X_test)
-
-def evaluate_model(model, X_test, Y_test, category_names):
-    labels = np.unique(y_pred)
-    confusion_mat = confusion_matrix(y_test, y_pred, labels=labels)
-    accuracy = (y_pred == y_test).mean()
-
-    print("Labels:", labels)
-    print("Confusion Matrix:\n", confusion_mat)
-    print("Accuracy:", accuracy)
+    return pipeline
 
 
-def save_model(model, model_filepath):
-    pass
+def save_model(model):
+    pickle.dump(model, open('model_2.pkl', 'wb'))
+
+def main():
+    model = build_model()
+    save_model(model)
+
+if __name__ == '__main__':
+    main()
