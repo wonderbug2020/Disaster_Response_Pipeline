@@ -35,7 +35,7 @@ def clean_data(df):
     return df
 
 def save_data(df):
-    engine = create_engine(f'sqlite:///DisasterResponse.db')
+    engine = create_engine(f'sqlite:///data/DisasterResponse.db')
     df.to_sql('DisasterData', engine, if_exists='replace', index=False)
 
 def main():
@@ -44,7 +44,7 @@ def main():
     #categories_path = 'categories.csv'
     #database_path = 'DisasterResponse'
     if len(sys.argv) == 4:
-        messages_path, categories_path, database_path = sys.argv[1:]       
+        messages_path, categories_path, database_path = sys.argv[1:]
 
         print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
                   .format(messages_path, categories_path))
