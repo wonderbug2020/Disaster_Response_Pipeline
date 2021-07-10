@@ -39,9 +39,9 @@ def save_data(df):
 
 def main():
 
-    messages_path = 'messages.csv'
-    categories_path = 'categories.csv'
-    database_path = 'DisasterResponse'
+    #messages_path = 'messages.csv'
+    #categories_path = 'categories.csv'
+    #database_path = 'DisasterResponse'
 
     print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
               .format(messages_path, categories_path))
