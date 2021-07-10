@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+import re
 import pickle
 from sqlalchemy import create_engine
 
@@ -9,16 +9,17 @@ nltk.download(['punkt', 'wordnet'])
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
-from sklearn.pipeline import Pipeline
+from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.multioutput import MultiOutputClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
 url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 
 def load_data():
-    engine = create_engine('sqlite:///DisasterResponse.db')
+    engine = create_engine('sqlite:///../data/DisasterResponse.db')
     df = pd.read_sql_table('DisasterData', engine)
     X = df.message
     y = df.drop(['id','message', 'original', 'genre'], axis=1)
