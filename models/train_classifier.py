@@ -44,6 +44,8 @@ def tokenize(text):
 
 
 def build_model():
+    '''Loads in the data, splits out into training and tests sets then runs a randomforestclassifier model
+    '''
     X, y = load_data()
     X_train, X_test, y_train, y_test = train_test_split(X, y)
 
