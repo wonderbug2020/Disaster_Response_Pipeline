@@ -12,6 +12,7 @@ from nltk.stem import WordNetLemmatizer
 
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.multioutput import MultiOutputClassifier
@@ -58,9 +59,15 @@ def build_model(database_path):
     ])
 
     # train classifier
-    pipeline.fit(X_train, y_train)
+    #pipeline.fit(X_train, y_train)
 
-    return pipeline
+    params = {
+        'clf__n_estimators': [50, 150]
+    }
+
+    cv = GridSearchCV(pipeline, param_grid=params)
+
+    return cv
 
 
 def save_model(model, model_path):
