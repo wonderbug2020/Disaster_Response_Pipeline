@@ -35,7 +35,7 @@ def clean_data(df):
 
 def save_data(df):
     engine = create_engine(f'sqlite:///DisasterResponse.db')
-    df.to_sql('DisasterData', engine, if_exists='replace' index=False)
+    df.to_sql('DisasterData', engine, if_exists='replace', index=False)
 
 def main():
 
