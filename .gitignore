@@ -2,3 +2,4 @@ cv_model.pkl
 categiories.csv
 messages.csv
 model_2.pkl
+DisasterResponse.db
