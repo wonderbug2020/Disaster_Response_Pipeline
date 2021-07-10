@@ -8,4 +8,7 @@ There are 3 main areas of this project, data, models, and app.
 - The app folder has a template folder which contains the HTML code for the website. It also has the run.py file that builds the app to predict user inputed messages. 
 
 ## How to use
-To run this project first clone it to your local machine. Starting the in the data folder, run the process_data.py file to create the database. Next, head over to the models folder and run the train_classifier.py file to make and save a model (this might take 10-20 minutes depending on your PC). Finally, open the app folder and run run.py. This will prompt your with a port number you can copy over into a browser to view the app functionality. From there, type in a message and the program will tell you what type of services will be required. 
+- To run this project first clone the project to your local machine. 
+- Next, open the data dfolder and in thew IDE of your choice, run the process_data.py file. Assuming your have provide appropriate messages.csv and catergories.csv it will perform ETL and save as a database file. 
+- Once the database file has been created, go to the models folder and in the same manner as before, run the train_classifier.py file. This will create a model pickle file.
+- Now you have all the files your need. You can finally go to the app folder and just like before, run the run.py file. This will provide you a pord ID which you can copy and paste into any web browse to view the app on your local machine. 
