@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -42,18 +43,20 @@ def main():
     #messages_path = 'messages.csv'
     #categories_path = 'categories.csv'
     #database_path = 'DisasterResponse'
+    if len(sys.argv) == 4:
+        messages_path, categories_path, database_path = sys.argv[1:]       
 
-    print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
-              .format(messages_path, categories_path))
-    df = load_data(messages_path, categories_path)
+        print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
+                  .format(messages_path, categories_path))
+        df = load_data(messages_path, categories_path)
 
-    print('Cleaning data...')
-    df = clean_data(df)
+        print('Cleaning data...')
+        df = clean_data(df)
 
-    print('Saving data...\n    DATABASE: {}'.format(database_path))
-    save_data(df)
+        print('Saving data...\n    DATABASE: {}'.format(database_path))
+        save_data(df)
 
-    print('Cleaned data saved to database!')
+        print('Cleaned data saved to database!')
 
 if __name__ == '__main__':
     main()
