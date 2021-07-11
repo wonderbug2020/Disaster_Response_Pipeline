@@ -34,8 +34,10 @@ def clean_data(df):
     df.drop_duplicates(inplace=True)
     return df
 
-def save_data(df):
-    engine = create_engine(f'sqlite:///data/DisasterResponse.db')
+def save_data(df,database_path):
+    '''Saves the data to a database file
+    '''
+    engine = create_engine(f'sqlite:///{database_path}')
     df.to_sql('DisasterData', engine, if_exists='replace', index=False)
 
 def main():
@@ -54,7 +56,7 @@ def main():
         df = clean_data(df)
 
         print('Saving data...\n    DATABASE: {}'.format(database_path))
-        save_data(df)
+        save_data(df,database_path)
 
         print('Cleaned data saved to database!')
 
