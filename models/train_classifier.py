@@ -21,6 +21,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 
 def load_data(database_path):
+    '''Loads the data
+    '''
     engine = create_engine(f'sqlite:///{database_path}')
     df = pd.read_sql_table('DisasterData', engine)
     X = df.message
@@ -30,6 +32,8 @@ def load_data(database_path):
 
 
 def tokenize(text):
+    '''tokenizes the text data
+    '''
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
         text = text.replace(url, "urlplaceholder")
@@ -68,7 +72,9 @@ def build_model(database_path):
 
     return cv, X_test, y_test#X_test, y_test
 
-def evaluate_model(model, X_test, y_test):
+def evaluate_model(model, X_test, y_test):\
+    '''evaluates the model
+    '''
     y_pred = model.predict(X_test)
     #precision = precision_score(y_test, y_pred)
     #recall = recall_score(y_test, y_pred)
@@ -82,6 +88,8 @@ def evaluate_model(model, X_test, y_test):
 
 
 def save_model(model, model_path):
+    '''saves the model
+    '''
     pickle.dump(model, open(f'{model_path}', 'wb'))
 
 def main():

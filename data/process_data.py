@@ -3,12 +3,16 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_path,categories_path):
+    '''Loads the data
+    '''
     messages_df = pd.read_csv(messages_path)
     categories_df = pd.read_csv(categories_path)
     df = pd.merge(messages_df, categories_df, on="id")
     return df
 
 def clean_data(df):
+    '''Cleans the data
+    '''
     #Create a new column for all the items in categories and extract the values from them
     #First to split them into all the columns
     categories = df.categories.str.split(';',expand=True)
