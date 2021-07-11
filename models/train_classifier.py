@@ -11,7 +11,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import precision_score, recall_score, f1_score, classification_report
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -55,19 +55,35 @@ def build_model(database_path):
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
-        ('clf', MultiOutputClassifier(RandomForestClassifier()))
+        ('clf', MultiOutputClassifier(RandomForestClassifier(verbose=2)))
     ])
+    #print(pipeline.get_params().keys())
+    print("this ran gud")
 
     # train classifier
     #pipeline.fit(X_train, y_train)
 
     params = {
-        'clf__n_estimators': [50, 150]
+        'clf__estimator__n_estimators': [50, 150]
     }
 
     cv = GridSearchCV(pipeline, param_grid=params)
+    cv.fit(X_train, y_train)
+    #y_pred = cv.predict(X_test)
 
-    return cv
+    return cv, X_test, y_test#X_test, y_test
+
+def evaluate_model(model, X_test, y_test):
+    y_pred = model.predict(X_test)
+    #precision = precision_score(y_test, y_pred)
+    #recall = recall_score(y_test, y_pred)
+    #f1 = f1_score(y_test, y_pred)
+    Y_pred = pd.DataFrame(y_pred, columns=y_test.columns)
+
+    for column in y_test.columns:
+        print(f'Model performance on category {column}')
+        print(classification_report(y_test[column],Y_pred[column]))
+
 
 
 def save_model(model, model_path):
@@ -77,7 +93,10 @@ def main():
     if len(sys.argv) == 3:
         database_path, model_path = sys.argv[1:]
         print('Please be paitent as the model is built')
-        model = build_model(database_path)
+        model, X_test, y_test = build_model(database_path)
+        #model, y_pred, y_test = build_model(database_path)
+        print('evaluating the model')
+        evaluate_model(model, X_test, y_test)
         print(f'Saving model as: {model_path}')
         save_model(model, model_path)
 
