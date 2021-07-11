@@ -21,7 +21,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 
 def load_data(database_path):
-    engine = create_engine('sqlite:///data/DisasterResponse.db')
+    engine = create_engine(f'sqlite:///{database_path}')
     df = pd.read_sql_table('DisasterData', engine)
     X = df.message
     y = df.drop(['id','message', 'original', 'genre'], axis=1)
@@ -57,11 +57,6 @@ def build_model(database_path):
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier(verbose=2)))
     ])
-    #print(pipeline.get_params().keys())
-    print("this ran gud")
-
-    # train classifier
-    #pipeline.fit(X_train, y_train)
 
     params = {
         'clf__estimator__n_estimators': [50, 150]
@@ -87,7 +82,7 @@ def evaluate_model(model, X_test, y_test):
 
 
 def save_model(model, model_path):
-    pickle.dump(model, open('model_2.pkl', 'wb'))
+    pickle.dump(model, open(f'{model_path}', 'wb'))
 
 def main():
     if len(sys.argv) == 3:
